@@ -1,0 +1,4 @@
+niftystuff
+==========
+
+some string functions
