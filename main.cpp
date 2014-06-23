@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <map>
+#include <limits>
 std::string reverse(std::string thestring){
     std::reverse(thestring.begin(), thestring.end());
     return thestring;
@@ -84,14 +85,31 @@ void getFirtNoRepeatCharacter(const std::string &str, std::map<char, int> &thech
     }
 
 }
+void fibonacci(long int cur, long int prev=1, int count=0, int stopcount=10){
+    if(count == stopcount)
+        return;
+    count++;
+    std::cout<<cur<<std::endl;
+    long int newcur = prev + cur;
+    fibonacci(newcur, cur, count);
+}
+
+bool simplePatternMatch(const std::string &text, const std::string &pattern){
+    auto pat_it = pattern.begin();
+    for(auto const &it : text){
+        if(it == *pat_it)
+            pat_it++;
+        else
+            pat_it = pattern.begin();
+        if(pat_it == pattern.end())
+            return true;
+    }
+    return false;
+}
 
 int main()
 {
-    std::string str="aaaaaabt";
-    std::map<char, int> character;
-    getNoRepeat(str, character);
-    for(auto const &it : character)
-        std::cout<<it.first<<"->"<<it.second<<std::endl;
+    fibonacci(1);
     return 0;
 }
 
