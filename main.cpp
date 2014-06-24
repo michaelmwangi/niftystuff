@@ -95,21 +95,38 @@ void fibonacci(long int cur, long int prev=1, int count=0, int stopcount=10){
 }
 
 bool simplePatternMatch(const std::string &text, const std::string &pattern){
+    //return true if pattern occurs otherwise false
     auto pat_it = pattern.begin();
-    for(auto const &it : text){
-        if(it == *pat_it)
+    std::string::const_iterator it = text.begin();
+    for(; it != text.end(); it++){
+        if(*it == *pat_it){
+            auto internal_it = it + 1;
             pat_it++;
-        else
-            pat_it = pattern.begin();
-        if(pat_it == pattern.end())
-            return true;
+            for(; internal_it != text.end();internal_it++){
+                if( *internal_it == *pat_it)
+                    pat_it++;
+                else{
+                    //a partial match occured so begin again to look for a match
+                    pat_it = pattern.begin();
+                    break;
+                }
+                if(pat_it == pattern.end())
+                    return true;
+
+            }
+
+        }
     }
+    //if we reach here there was no match
     return false;
 }
 
 int main()
 {
-    fibonacci(1);
+    //fibonacci(1);
+    auto t = "CCAT";
+    auto p = "CAT";
+    std::cout<<simplePatternMatch(t, p);
     return 0;
 }
 
